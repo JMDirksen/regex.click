@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>My Web Page</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        td {
+            vertical-align: top;
+        }
+
+        textarea {
+            box-sizing: border-box;
+            width: 75%;
+            height: 200px;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            box-sizing: border-box;
+            width: 75%;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 5px 10px;
+            font-size: 16px;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const button = document.getElementById('testButton');
+            const regexPattern = document.getElementById('regexPattern');
+            button.addEventListener('click', function () {
+                const regexInput = document.getElementById('regexInput').value;
+                const regexPattern = document.getElementById('regexPattern').value;
+                const regexOutput = document.getElementById('regexOutput');
+
+                try {
+                    const regex = new RegExp(regexPattern);
+                    const matches = regex.exec(regexInput);
+                    if (matches) {
+                        regexOutput.value = matches[0];
+                    } else {
+                        regexOutput.value = 'No match found.';
+                    }
+                } catch (e) {
+                    regexOutput.value = 'Invalid RegEx pattern: ' + e.message;
+                }
+            });
+
+            // Click event when pressing enter in the regex input
+            regexPattern.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    button.click();
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <h1>RegEx Click</h1>
+    <table>
+        <tr>
+            <td>
+                <div>
+                    <textarea id="regexInput" placeholder="Enter your text here"></textarea></br>
+                    <input type="text" id="regexPattern" placeholder="Enter RegEx pattern"></br>
+                    <button id="testButton">Click!</button>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <textarea id="regexOutput" placeholder="Output will appear here" readonly></textarea>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
